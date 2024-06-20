@@ -1,49 +1,117 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Website Title</title>
-    <style>
-        /* Add your custom CSS styles here */
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            margin: 0;
-            padding: 0;
-        }
-        header {
-            background-color: #333;
-            color: #fff;
-            padding: 10px 0;
-            text-align: center;
-        }
-        main {
-            padding: 20px;
-        }
-        footer {
-            background-color: #333;
-            color: #fff;
-            text-align: center;
-            padding: 10px 0;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pink Calculator Widget</title>
+<style>
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f0f0f0;
+  }
+  .calculator {
+    background-color: pink;
+    border: 2px solid #ff69b4;
+    border-radius: 10px;
+    padding: 20px;
+    width: 200px;
+  }
+  .display {
+    background-color: #fff;
+    border: 1px solid #ff69b4;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    padding: 10px;
+    font-size: 20px;
+    text-align: right;
+  }
+  .button {
+    background-color: #ff69b4;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 18px;
+    margin: 5px;
+    padding: 15px;
+    width: 40px;
+    cursor: pointer;
+  }
+  .button:active {
+    background-color: #ff1493;
+  }
+  .button-row {
+    display: flex;
+    justify-content: space-between;
+  }
+</style>
 </head>
 <body>
-    <header>
-        <h1>Welcome to Your Website</h1>
-    </header>
-    
-    <main>
-        <h2>Main Content Section</h2>
-        <p>This is where your main content goes. You can add paragraphs, images, and other HTML elements here.</p>
-    </main>
-    
-    <footer>
-        <p>&copy; 2024 Ruth Queypo. All rights reserved.</p>
-    </footer>
+<div class="calculator">
+  <div id="display" class="display">0</div>
+  <div class="button-row">
+    <button class="button" onclick="clearDisplay()">C</button>
+    <button class="button" onclick="deleteLast()">←</button>
+    <button class="button" onclick="appendNumber('.')">.</button>
+    <button class="button" onclick="appendOperator('/')">/</button>
+  </div>
+  <div class="button-row">
+    <button class="button" onclick="appendNumber('7')">7</button>
+    <button class="button" onclick="appendNumber('8')">8</button>
+    <button class="button" onclick="appendNumber('9')">9</button>
+    <button class="button" onclick="appendOperator('*')">*</button>
+  </div>
+  <div class="button-row">
+    <button class="button" onclick="appendNumber('4')">4</button>
+    <button class="button" onclick="appendNumber('5')">5</button>
+    <button class="button" onclick="appendNumber('6')">6</button>
+    <button class="button" onclick="appendOperator('-')">-</button>
+  </div>
+  <div class="button-row">
+    <button class="button" onclick="appendNumber('1')">1</button>
+    <button class="button" onclick="appendNumber('2')">2</button>
+    <button class="button" onclick="appendNumber('3')">3</button>
+    <button class="button" onclick="appendOperator('+')">+</button>
+  </div>
+  <div class="button-row">
+    <button class="button" style="width: calc(100% - 50px)" onclick="appendNumber('0')">0</button>
+    <button class="button" onclick="calculateResult()">=</button>
+  </div>
+</div>
+
+<script>
+  function clearDisplay() {
+    document.getElementById('display').innerText = '0';
+  }
+
+  function deleteLast() {
+    const display = document.getElementById('display');
+    display.innerText = display.innerText.slice(0, -1) || '0';
+  }
+
+  function appendNumber(number) {
+    const display = document.getElementById('display');
+    if (display.innerText === '0') {
+      display.innerText = number;
+    } else {
+      display.innerText += number;
+    }
+  }
+
+  function appendOperator(operator) {
+    const display = document.getElementById('display');
+    if (!isNaN(display.innerText.slice(-1))) {
+      display.innerText += operator;
+    }
+  }
+
+  function calculateResult() {
+    const display = document.getElementById('display');
+    display.innerText = eval(display.innerText);
+  }
+</script>
 </body>
 </html>
